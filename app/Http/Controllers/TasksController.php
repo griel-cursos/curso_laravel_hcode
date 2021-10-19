@@ -18,10 +18,34 @@ class TasksController extends Controller
     public function store(Request $request)
     {
 
-        $task = Task::create([
+        $task = App\Task::create([
             'name'=>$request->input('name')
         ]);
 
         return $task;
+    }
+
+    public function show(Task $task)
+    {
+        return $task;
+    }
+
+    public function update(Request $request, Task $task)
+    {
+
+        $task->name = $request->input('name');
+
+        $task->save();
+
+        return $task;
+    }
+
+    public function destroy(Task $task)
+    {
+        $task->delete();
+
+        return response()->json([
+            'sucess'=>true
+        ]);
     }
 }
