@@ -18,7 +18,12 @@ class TasksController extends Controller
     public function store(Request $request)
     {
 
-        $task = App\Task::create([
+        $request->validate([
+            'name'=>'required|max:255|min:3',
+            'complete'=>'required'
+        ]);
+
+        $task = \App\Models\Task::create([
             'name'=>$request->input('name')
         ]);
 
@@ -32,6 +37,10 @@ class TasksController extends Controller
 
     public function update(Request $request, Task $task)
     {
+
+        $request->validate([
+            'name'=>'required|max:255|min:3'
+        ]);
 
         $task->name = $request->input('name');
 
